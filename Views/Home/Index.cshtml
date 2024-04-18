@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Borough> 
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +8,56 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+@* 
+<select class="form-select" aria-label="Default select example">
+  <option selected>Selecciones Pais</option>
+  @foreach(var item in Model){
+    <option value="@item.idCountry">@item.name</option>
+  }
+</select> *@
+
+@* <select class="form-select" aria-label="Default select example">
+  <option selected>Selecciones Region</option>
+  @foreach(var item in Model){
+    <option value="@item.idRegion">@item.name</option>
+  }
+</select> *@
+
+
+
+@* <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Pais</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach(var item in Model){
+        <tr>
+          <th scope="row">@item.idCountry</th>
+          <td>@item.name</td>
+        </tr>
+      }
+  </tbody>
+</table> *@
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"># </th>
+      <th scope="col">Name</th>
+      <th scope="col">Region</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach(var item in Model){
+        <tr>
+          <th scope="row">@item.idBorough</th>
+          <td>@item.name</td>
+          <td>@item.idRegion</td>
+
+        </tr>
+      }
+  </tbody>
+</table>

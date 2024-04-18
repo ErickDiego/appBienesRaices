@@ -1,7 +1,11 @@
+using appBienesRaices.Servicios;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IServicioApi, ServicioApi>(); //Agregargoal Scope para que el proyectop ueda ejecutarlo y no rechazar su ejecucion
 
 var app = builder.Build();
 

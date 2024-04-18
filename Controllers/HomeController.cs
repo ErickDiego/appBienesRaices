@@ -1,4 +1,5 @@
 using appBienesRaices.Models;
+using appBienesRaices.Servicios;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +7,30 @@ namespace appBienesRaices.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IServicioApi _serviceAPI;
 
-        public HomeController(ILogger<HomeController> logger)
+      
+        public HomeController(IServicioApi serviceAPI) 
         {
-            _logger = logger;
+            _serviceAPI = serviceAPI;
+           
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
+            //List<Country> lista = new List<Country>();
+            //lista = await _serviceAPI.obtenerCountries();
+            //return View(lista);
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            //List<Region> listaRegion = new List<Region>();
+            //listaRegion = await _serviceAPI.obtenerRegions();
+            //return View(listaRegion);
+
+            List<Borough> lista = new List<Borough>();
+            lista = await _serviceAPI.obtenerBoroughConPropiedades(14);
+            return View(lista);
+
         }
     }
 }
