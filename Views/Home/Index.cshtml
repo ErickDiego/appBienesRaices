@@ -1,66 +1,57 @@
-﻿
-
+﻿@model List<InfoBorough>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    .card {
+        background: #222;
+        border: 1px solid #dd2476;
+        color: rgba(250, 250, 250, 0.8);
+        margin-bottom: 2rem;
+    }
 </style>
 
 <div class="text-center">
     <h1 class="display-4">Encuentra tu Hogar</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-@*
-<select class="form-select" aria-label="Default select example">
-  <option selected>Selecciones Pais</option>
-  @foreach(var item in Model){
-    <option value="@item.idCountry">@item.name</option>
-  }
-</select> *@
-
-@* <select class="form-select" aria-label="Default select example">
-  <option selected>Selecciones Region</option>
-  @foreach(var item in Model){
-    <option value="@item.idRegion">@item.name</option>
-  }
-</select> *@
 
 
 
-@* <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Pais</th>
-    </tr>
-  </thead>
-  <tbody>
-      @foreach(var item in Model){
-        <tr>
-          <th scope="row">@item.idCountry</th>
-          <td>@item.name</td>
-        </tr>
-      }
-  </tbody>
-</table> *@
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-4 mb-2">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <img src="@item.firstImageUrl" class="card-img-top" alt="...">
+                    <h5 class="card-title">@item.propertyTitle</h5>
+                    @if (item.priceRent>0 && item.priceSale==0)
+                    {
+                        <p><span>Valor Arriendo: </span>@item.priceRent</p>
+                    }
+                    else if (item.priceRent == 0 && item.priceSale > 0)
+                    {
+                        <p><span>Valor Venta: </span>@item.priceSale</p>
+                    }
+                  
+                    <p class="card-text">@item.webAddress</p>
 
-@* <table class="table">
-  <thead>
-    <tr>
-      <th scope="col"># </th>
-      <th scope="col">Name</th>
-      <th scope="col">Region</th>
-    </tr>
-  </thead>
-  <tbody>
-      @foreach(var item in Model){
-        <tr>
-          <th scope="row">@item.idBorough</th>
-          <td>@item.name</td>
-          <td>@item.idRegion</td>
+                    <a asp-action="Property" asp-controller="Home" asp-route-idProperty="@item.idProperty" class="btn btn-primary btn-sm">Mas informacion</a>
+                </div>
+            </div>
+        </div>
+    }
 
-        </tr>
-      }
-  </tbody>
-</table> *@
+    @*    <div class="col-sm-6">
+    <div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    </div>
+    </div> *@
+</div>

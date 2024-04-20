@@ -1,6 +1,7 @@
 using appBienesRaices.Models;
 using appBienesRaices.Servicios;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
 namespace appBienesRaices.Controllers
@@ -39,6 +40,14 @@ namespace appBienesRaices.Controllers
             listaInfoBorough = await _serviceAPI.listadoPropiedades();
             return View(listaInfoBorough);
 
+        }
+
+        public async Task<IActionResult> Property(int idProperty)
+        {
+            InfoBorough infoBorough = new InfoBorough();
+            infoBorough = await _serviceAPI.obtenerInforBoroughById(idProperty);
+
+            return View(infoBorough);
         }
     }
 }
