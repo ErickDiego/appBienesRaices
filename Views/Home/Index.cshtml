@@ -5,53 +5,62 @@
 }
 
 <style>
+    .card-header {
+        position: relative; /* Añade una posición relativa para usar en la imagen */
+        overflow: hidden; /* Para asegurar que la imagen no salga de los límites del encabezado de la tarjeta */
+    }
+
+        .card-header img {
+            /*  //width: 100%; */ /* Asegura que la imagen ocupe todo el ancho disponible */
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 200px; /* Mantiene la proporción original de la imagen */
+            object-fit: cover; /* Escala la imagen para cubrir todo el área del contenedor manteniendo la relación de aspecto */
+        }
+
     .card {
-        background: #222;
-        border: 1px solid #dd2476;
-        color: rgba(250, 250, 250, 0.8);
-        margin-bottom: 2rem;
+        height: 100%;
     }
 </style>
 
+
 <div class="text-center">
     <h1 class="display-4">Encuentra tu Hogar</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-6">ETH</h1>
 </div>
 
 
+<div class="container mt-2">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4 mb-2">
+                <div class="card">
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-sm-4 mb-2">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <img src="@item.firstImageUrl" class="card-img-top" alt="...">
-                    <h5 class="card-title">@item.propertyTitle</h5>
-                    @if (item.priceRent>0 && item.priceSale==0)
-                    {
-                        <p><span>Valor Arriendo: </span>@item.priceRent</p>
-                    }
-                    else if (item.priceRent == 0 && item.priceSale > 0)
-                    {
-                        <p><span>Valor Venta: </span>@item.priceSale</p>
-                    }
-                  
-                    <p class="card-text">@item.webAddress</p>
+                    <div class="card-header">
+                        <img src="@item.firstImageUrl" alt="VMW">
+                    </div>
 
-                    <a asp-action="Property" asp-controller="Home" asp-route-idProperty="@item.idProperty" class="btn btn-primary btn-sm">Mas informacion</a>
+                    <div class="card-body">
+                        <h5 class="card-title">@item.propertyTitle</h5>
+
+                        @if (item.priceRent > 0 && item.priceSale == 0)
+                        {
+                            <p><span>Valor Arriendo: </span>@item.priceRent</p>
+                        }
+                        else if (item.priceRent == 0 && item.priceSale > 0)
+                        {
+                            <p><span>Valor Venta: </span>@item.priceSale</p>
+                        }
+
+                        <p class="card-text">@item.webAddress</p>
+
+                        <a asp-action="Property" asp-controller="Home" asp-route-idProperty="@item.idProperty" class="btn btn-primary btn-sm">Mas informacion</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
-    @*    <div class="col-sm-6">
-    <div class="card">
-    <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
-    </div>
-    </div> *@
 </div>
