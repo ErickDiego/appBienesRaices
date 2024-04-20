@@ -1,6 +1,6 @@
-﻿@* @model List<Borough>  *@
+﻿
 
-@model InfoBorough
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -64,59 +64,3 @@
       }
   </tbody>
 </table> *@
-
-<div class="card mb-3">
-    <div id="carouselExample" class="carousel slide">
-        <div class="carousel-inner">
-
-            @foreach (var item in Model.propertyMedia)
-            {
-                var isFirstItem = (item == Model.propertyMedia.First());
-                <div class="carousel-item @(isFirstItem ? "active" : "")">
-                    <img src="@item.url" class="img-thumbnail" alt="...">
-                </div>
-            }
-
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-    <div class="card-body">
-        <h1 class="card-title">@Model.propertyTitle</h1>
-        <p class="card-text">@Model.webAddress</p>
-        <p class="card-text">@Model.observations.Replace("<br /><br />", "")</p>
-
-
-        <h5>Valor de Venta: @Model.priceSaleFormatted</h5>
-        <h5>Valor de Arriendo: @Model.priceRentFormatted</h5>
-
-        <h4>Caracteristicas del inmueble</h4>
-        <table class="tab-content">
-            <tr>
-                <th>Habitaciones</th>
-                <th>@Model.characteristics.bedrooms</th>
-                <th>Baños</th>
-                <th>@Model.characteristics.bathrooms</th>
-                <th>Mascota</th>
-                <th>@Model.characteristics.petsAllowed</th>
-            </tr>
-            <tr>
-                <th>Año de construccion</th>
-                <th>@Model.characteristics.constructionYear</th>
-                <th>Piscina</th>
-                <th>@Model.characteristics.pool</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </table>
-
-       
-        <p class="card-text"><small class="text-body-secondary">Fecha de Publicacion: @Model.publicationDate.ToShortDateString()</small></p>
-    </div>
-</div>

@@ -1,6 +1,8 @@
 ﻿using appBienesRaices.Models;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http.Headers;
 using System.Text;
@@ -343,5 +345,27 @@ namespace appBienesRaices.Servicios
             return infoBorough;
         }
 
+        public async Task<List<InfoBorough>> listadoPropiedades()
+        {
+            List<InfoBorough> listaInfoBorough = new List<InfoBorough>();
+
+            var cliente = new HttpClient();
+            cliente.BaseAddress = new Uri(_baseURL);
+            cliente.DefaultRequestHeaders.Add(_Ocp_Apim_Subscription_Key, _key);
+            Object objetoprueba = new object();
+            var content = new StringContent(JsonConvert.SerializeObject(objetoprueba), Encoding.UTF8, "application/json");
+
+            var response = await cliente.PostAsync($"properties", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json_respuesta = await response.Content.ReadAsStringAsync();
+                var lista = JsonConvert.DeserializeObject<Properties>(json_respuesta);
+
+                listaInfoBorough = lista.items;
+
+            }
+            return listaInfoBorough;
+        }
     }
 }

@@ -44,20 +44,7 @@ namespace appBienesRaices.Servicios
         //
         Task<InfoBorough> obtenerInforBoroughById(int idProperty);
 
-
-
-
-        //GetCondominiums
-        //GetCondominiumsWithProperties
-        //GetCountries
-        //GetCountriesWithProperties
-        //GetCurrencies
-        //GetPropertyStates
-        //GetPropertyTypes
-        //GetPropertyTypesWithProperties
-        //GetRegions
-        //GetRegionsWithProperties
-        //GetSectors
-        //GetSectorsWithProperties
+        //
+        Task<List<InfoBorough>> listadoPropiedades();
     }
 }

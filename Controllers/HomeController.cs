@@ -31,11 +31,13 @@ namespace appBienesRaices.Controllers
             //lista = await _serviceAPI.obtenerBoroughConPropiedades(14);
             //return View(lista);
 
-            InfoBorough infoBorough = new InfoBorough();
-            infoBorough = await _serviceAPI.obtenerInforBoroughById(5206);
+            //InfoBorough infoBorough = new InfoBorough();
+            //infoBorough = await _serviceAPI.obtenerInforBoroughById(5206);
+            //return View(infoBorough);
 
-          //  infoBorough.propertyMedia[1].url;
-            return View(infoBorough);
+            List<InfoBorough> listaInfoBorough = new List<InfoBorough>();
+            listaInfoBorough = await _serviceAPI.listadoPropiedades();
+            return View(listaInfoBorough);
 
         }
     }
