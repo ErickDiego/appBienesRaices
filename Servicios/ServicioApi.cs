@@ -323,5 +323,25 @@ namespace appBienesRaices.Servicios
             }
             return listaBorough;
         }
+
+        public async Task<InfoBorough> obtenerInforBoroughById(int idProperty)
+        {
+            InfoBorough infoBorough = new InfoBorough();
+
+            var cliente = new HttpClient();
+            cliente.BaseAddress = new Uri(_baseURL);
+            cliente.DefaultRequestHeaders.Add(_Ocp_Apim_Subscription_Key, _key);
+
+            var response = await cliente.GetAsync($"properties/{idProperty}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json_respuesta = await response.Content.ReadAsStringAsync();
+                infoBorough = JsonConvert.DeserializeObject<InfoBorough>(json_respuesta);
+
+            }
+            return infoBorough;
+        }
+
     }
 }

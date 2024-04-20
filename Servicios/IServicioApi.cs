@@ -1,4 +1,5 @@
 ﻿using appBienesRaices.Models;
+using System.ComponentModel;
 
 namespace appBienesRaices.Servicios
 {
@@ -40,7 +41,8 @@ namespace appBienesRaices.Servicios
         Task<List<Sector>> obtenerSectoresWithProperties(int idBorough);
 
 
-
+        //
+        Task<InfoBorough> obtenerInforBoroughById(int idProperty);
 
 
 

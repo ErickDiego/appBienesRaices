@@ -27,9 +27,15 @@ namespace appBienesRaices.Controllers
             //listaRegion = await _serviceAPI.obtenerRegions();
             //return View(listaRegion);
 
-            List<Borough> lista = new List<Borough>();
-            lista = await _serviceAPI.obtenerBoroughConPropiedades(14);
-            return View(lista);
+            //List<Borough> lista = new List<Borough>();
+            //lista = await _serviceAPI.obtenerBoroughConPropiedades(14);
+            //return View(lista);
+
+            InfoBorough infoBorough = new InfoBorough();
+            infoBorough = await _serviceAPI.obtenerInforBoroughById(5206);
+
+          //  infoBorough.propertyMedia[1].url;
+            return View(infoBorough);
 
         }
     }
