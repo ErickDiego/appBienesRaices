@@ -10,18 +10,18 @@
 
 <a asp-action="Index" asp-controller="Home" class="btn btn-warning btn-sm">Volver a lista</a>
 
-<div class="card mb-3">
+<div class="card col-sm-12 mb-3">
     <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
-
             @foreach (var item in Model.propertyMedia)
             {
                 var isFirstItem = (item == Model.propertyMedia.First());
                 <div class="carousel-item @(isFirstItem ? "active" : "")">
-                    <img src="@item.url" class="img-thumbnail" alt="...">
+                    <div class="d-flex justify-content-center">
+                        <img src="@item.url" class="img-thumbnail" alt="...">
+                    </div>
                 </div>
             }
-
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -38,29 +38,95 @@
         <p class="card-text">@Model.observations.Replace("<br /><br />", "")</p>
 
 
-        <h5>Valor de Venta: @Model.priceSaleFormatted</h5>
-        <h5>Valor de Arriendo: @Model.priceRentFormatted</h5>
-
-        <h4>Caracteristicas del inmueble</h4>
-        <table class="tab-content">
-            <tr>
-                <th>Habitaciones</th>
-                <th>@Model.characteristics.bedrooms</th>
-                <th>Baños</th>
-                <th>@Model.characteristics.bathrooms</th>
-                <th>Mascota</th>
-                <th>@Model.characteristics.petsAllowed</th>
-            </tr>
-            <tr>
-                <th>Año de construccion</th>
-                <th>@Model.characteristics.constructionYear</th>
-                <th>Piscina</th>
-                <th>@Model.characteristics.pool</th>
-                <th></th>
-                <th></th>
-            </tr>
+        <table class="table-info table-bordered">
+            <tbody>
+                <tr>
+                    <th>Valor de Venta</th>
+                    <th>@Model.priceSaleFormatted</th>
+                </tr>
+                <tr>
+                    <th>Valor de Arriendo</th>
+                    <th>@Model.priceRentFormatted</th>
+                </tr>
+            </tbody>
         </table>
 
+        <h4>Caracteristicas del inmueble</h4>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered ">
+                        <tr>
+                            <th class="table-info">Habitaciones</th>
+                            <th>@Model.characteristics.bedrooms</th>
+                        </tr>
+                        <tr>
+                            <th class="table-info">Baños</th>
+                            <th>@Model.characteristics.bathrooms</th>
+                        </tr>
+                        <tr>
+                            <th class="table-info">Año de construccion</th>
+                            <th>@Model.characteristics.constructionYear</th>
+                        </tr>
+                        <tr>
+                            <th class="table-info">Piscina</th>
+                            @if (Model.characteristics.pool)
+                            {
+                                <th>Si</th>
+                            }
+                            else
+                            {
+                                <th>No</th>
+                            }
+                        </tr>
+                        <tr>
+                            <th class="table-info">Mascota</th>
+                            @if (Model.characteristics.petsAllowed)
+                            {
+                                <th>Si</th>
+                            }
+                            else
+                            {
+                                <th>No</th>
+                            }
+                        </tr>
+                        <tr></tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-bordered ">
+                        <tr>
+                            <th class="table-info">Estacionamientos</th>
+                            <th>@Model.characteristics.parkings</th>
+                        </tr>
+                        <tr>
+                            <th class="table-info">Superficie Util</th>
+                            <th>@Model.characteristics.utildSurface</th>
+                        </tr>
+                        <tr>
+                            <th class="table-info">Metros de Propiedad</th>
+                            <th>@Model.characteristics.buildedSurface</th>
+                        </tr>
+                        <tr>
+                            <th class="table-info">Superficie Terraza</th>
+                            <th>@Model.characteristics.terraceSurface</th>
+                        </tr>
+                  
+                        <tr></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+
+        <br />
+
+        <table class="table">
+            <tbody>
+                ...
+            </tbody>
+        </table>
 
         <p class="card-text"><small class="text-body-secondary">Fecha de Publicacion: @Model.publicationDate.ToShortDateString()</small></p>
     </div>

@@ -33,6 +33,8 @@ namespace appBienesRaices.Servicios
         Task<List<InfoPropertyType>> obtenerInfoPropertyTypesWithProperties();
         /** Obteneer listado de las regiones que tiene la API*/
         Task<List<Region>> obtenerRegions();
+
+        Task<List<Region>> obtenerRegionsByIdCountry(int idCountry);
         //
         Task<List<Region>> obtenerRegionsWithProperties();
         //

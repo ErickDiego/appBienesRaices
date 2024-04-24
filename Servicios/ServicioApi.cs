@@ -31,7 +31,7 @@ namespace appBienesRaices.Servicios
             cliente.BaseAddress = new Uri(_baseURL);
             cliente.DefaultRequestHeaders.Add(_Ocp_Apim_Subscription_Key, _key);
 
-            var response = await cliente.GetAsync($"info/boroughs/{idRegion}");
+            var response = await cliente.GetAsync($"info/boroughs?idRegion={idRegion}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -265,6 +265,29 @@ namespace appBienesRaices.Servicios
             return lista;
         }
 
+        public async Task<List<Region>> obtenerRegionsByIdCountry(int idCountry)
+        {
+            List<Region> lista = new List<Region>();
+
+            var cliente = new HttpClient();
+
+            cliente.BaseAddress = new Uri(_baseURL);
+
+            cliente.DefaultRequestHeaders.Add(_Ocp_Apim_Subscription_Key, _key);
+
+            var response = await cliente.GetAsync($"info/regions?idCountry={idCountry}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json_respuesta = await response.Content.ReadAsStringAsync();
+                var resultado = JsonConvert.DeserializeObject<List<Region>>(json_respuesta);
+
+                lista = resultado;
+            }
+
+            return lista;
+        }
+
         public async Task<List<Region>> obtenerRegionsWithProperties()
         {
             List<Region> lista = new List<Region>();
@@ -309,7 +332,7 @@ namespace appBienesRaices.Servicios
 
         public async Task<List<Sector>> obtenerSectoresWithProperties(int idBorough)
         {
-            List<Sector> listaBorough = new List<Sector>();
+            List<Sector> lista = new List<Sector>();
             var cliente = new HttpClient();
             cliente.BaseAddress = new Uri(_baseURL);
             cliente.DefaultRequestHeaders.Add(_Ocp_Apim_Subscription_Key, _key);
@@ -321,9 +344,9 @@ namespace appBienesRaices.Servicios
                 var json_respuesta = await response.Content.ReadAsStringAsync();
                 var resultado = JsonConvert.DeserializeObject<List<Sector>>(json_respuesta);
 
-                listaBorough = resultado;
+                lista = resultado;
             }
-            return listaBorough;
+            return lista;
         }
 
         public async Task<InfoBorough> obtenerInforBoroughById(int idProperty)

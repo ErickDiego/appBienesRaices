@@ -1,4 +1,4 @@
-﻿@model List<InfoBorough>
+﻿@model HomePageModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -24,6 +24,48 @@
     }
 </style>
 
+<script>
+    function loadRegiones(paisId) {
+
+        $.ajax({
+            url: '@Url.Action("GetRegiones", "Home")',
+            type: 'GET',
+            data: { idCountry: paisId },
+            success: function (response) {
+                $('#region').empty(); // Vaciar el dropdown de regiones
+                $('#comuna').empty(); // Vaciar el dropdown de comunas
+                $('#region').append($('<option selected disabled>').text('Region').attr('value', '-1'));
+                $('#comuna').append($('<option selected disabled>').text('Comuna').attr('value', '-1'));
+                $.each(response, function (index, value) {
+                    $('#region').append($('<option>').text(value.name).attr('value', value.idRegion));
+                });
+                loadComunas(response[0].Id); // Cargar las comunas de la primera región
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    function loadComunas(regionId) {
+        console.log('Buscar comuna para region: ' + regionId)
+        $.ajax({
+            url: '@Url.Action("GetComunas", "Home")',
+            type: 'GET',
+            data: { idRegion: regionId },
+            success: function (response) {
+                $('#comuna').empty(); // Vaciar el dropdown de comunas
+                $('#comuna').append($('<option selected disabled>').text('Comuna').attr('value', '-1'));
+                $.each(response, function (index, value) {
+                    $('#comuna').append($('<option>').text(value.name).attr('value', value.idBorough));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+</script>
 
 <div class="text-center">
     <h1 class="display-4">Encuentra tu Hogar</h1>
@@ -31,9 +73,36 @@
 </div>
 
 
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <select class="form-select" onchange="loadRegiones(this.value)">
+                <option selected disabled>Pais</option>
+                @foreach (var pais in Model.Paises)
+                {
+                    <option value="@pais.idCountry">@pais.name</option>
+                }
+            </select>
+        </div>
+        <div class="col">
+            <select id="region" class="form-select" onchange="loadComunas(this.value)">
+                <option selected disabled>Region</option>
+            </select>
+        </div>
+        <div class="col">
+            <select id="comuna" class="form-select">
+                <option selected disabled>Comuna</option>
+            </select>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary">Filtrar</button>
+        </div>
+    </div>
+</div>
+
 <div class="container mt-2">
     <div class="row">
-        @foreach (var item in Model)
+        @foreach (var item in Model.InfoBoroughs)
         {
             <div class="col-sm-4 mb-2">
                 <div class="card">
